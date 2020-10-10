@@ -96,8 +96,43 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # implement a bubble sort
+        # this should have a runtime of O(n^2)
+        
+        # use light to keep track of whether the robot has swapped items
+        # on the current pass through the list
+        
+        # start with light on to ensure we enter the while loop
+        self.set_light_on()
+        
+        # if the robot ends a pass without swapping items, the light will be off
+        # and we are done sorting
+        while self.light_is_on():
+            # start each pass with the light off
+            self.set_light_off()
+            
+            # move through the list, comparing each item to the one next to it
+            # and swapping items of higher value, just like a bubble sort
+            while self.can_move_right():
+                
+                self.swap_item()
+                self.move_right()
+                
+                if self.compare_item() == 1: # robot's item > list item, swap
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.set_light_on() # turn on light to indicate a swap
+                
+                else: # robot's item <= list item, don't swap
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    
+            # go back to the beginning of the list
+            while self.can_move_left():
+                self.move_left()
 
 
 if __name__ == "__main__":
